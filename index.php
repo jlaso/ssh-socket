@@ -67,7 +67,7 @@ $theme = new SolarizedXTermTheme();
     $(function(){
         console.log( "ready!" );
 
-        conn = new WebSocket('ws://localhost:8080');
+        conn = new WebSocket('ws://<?php echo $_SERVER['SERVER_ADDR']; ?>:8080');
         conn.onopen = function(e) {
             console.log("Connection established!");
         };
