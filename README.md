@@ -4,13 +4,15 @@ Configure your ssh credentials in src/config/parameters.ini
 
 Remember to enable WebSharing if you are using a MAC OSx
 
-you can test this component launching the server:
+you can test this component with the demo included, 
+
+firstly, launching the server:
 
 ```
 php src/server.php
 ```
 
-and in other tab
+and in another tab
 ```
 php -S localhost 8081
 ```
