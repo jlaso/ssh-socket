@@ -1,3 +1,4 @@
 [config]
-user=root
-password=root
+user=vagrant
+password=vagrant
+port=8081

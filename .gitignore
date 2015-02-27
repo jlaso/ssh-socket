@@ -6,4 +6,6 @@ src/config/parameters.ini
 composer.lock
 vendor
 
+vagrant/.vagrant
+.vagrant
 

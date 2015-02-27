@@ -5,7 +5,8 @@
         }
     },
     "require": {
-        "cboden/ratchet": "0.3.*"
+        "cboden/ratchet": "0.3.*",
+        "sensiolabs/ansi-to-html": "*"
     }
 }
 
