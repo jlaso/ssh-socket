@@ -8,14 +8,14 @@ use MyApp\SshServer;
 require dirname(__DIR__) . '/vendor/autoload.php';
 
 $parameters = parse_ini_file(__DIR__.'/config/parameters.ini', true);
-
+$config = $parameters['config'];
 $server = IoServer::factory(
     new HttpServer(
         new WsServer(
-            new SshServer($parameters['config'])
+            new SshServer($config)
         )
     ),
-    8080
+    $config['port']
 );
 
 $server->run();

@@ -6,6 +6,9 @@ use SensioLabs\AnsiConverter\Theme\SolarizedXTermTheme;
 
 $theme = new SolarizedXTermTheme();
 
+$parameters = parse_ini_file(__DIR__.'/src/config/parameters.ini', true);
+$config = $parameters['config'];
+
 ?>
 <html>
 
@@ -40,10 +43,15 @@ $theme = new SolarizedXTermTheme();
 
     <h1>TEST SSH</h1>
 
-    <pre id="output">
-    </pre>
+    <pre id="output"></pre>
 
     <input type="text" id="command" value="" placeholder="" autofocus/>
+
+    <a href="https://github.com/jlaso/ssh-socket" target="_blank">
+        <img style="position: absolute; top: 0; right: 0; border: 0;"
+             src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub"
+             data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png">
+    </a>
 
 </body>
 
@@ -51,10 +59,28 @@ $theme = new SolarizedXTermTheme();
 <script>
     var conn = null;
 
+    function output(data, append)
+    {
+        var append = append | false;
+        if(append){
+            $("#output").append(data+"\n");
+            $("#output").scrollTop(1000000);
+        }else{
+            $("#output").html(data);
+        }
+    }
+
     function processCommand(command){
         switch (command){
             case 'clear':
-                $("#output").html("");
+                output("");
+                break;
+
+            case 'help':
+                alert(
+                    "* This is an experiment to exploit the ssh2 library \n"+
+                    "* Interactive commands are not allowed so far because of streaming way of the output"
+                );
                 break;
 
             default:
@@ -65,17 +91,19 @@ $theme = new SolarizedXTermTheme();
     }
 
     $(function(){
-        console.log( "ready!" );
 
-        conn = new WebSocket('ws://<?php echo $_SERVER['SERVER_ADDR']; ?>:8080');
+        conn = new WebSocket('<?php echo sprintf('ws://%s:%d',$_SERVER['SERVER_ADDR'], $config['port']); ?>');
+
         conn.onopen = function(e) {
-            console.log("Connection established!");
+            output("Connection established!\n\n");
         };
 
+        conn.onclose = function(e) {
+            output("\nConnection lost!\n\n",true);
+        }
+
         conn.onmessage = function(e) {
-            //console.log(e.data);
-            $("#output").append(e.data+"\n");
-            $("#output").scrollTop(1000000);
+            output(e.data, true);
         };
 
         $('#command').keydown(function (e) {
