@@ -44,7 +44,6 @@ Now in a compatible HTML5  browser go to http://localhost:8080 and play with the
 move to the vagrant folder and start machine
 
 ```
-cd vagrant
 vagrant up
 ```
 

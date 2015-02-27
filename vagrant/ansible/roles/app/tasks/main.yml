@@ -1,7 +1,0 @@
----
-- shell: cp /vagrant/src/config/parameters.ini.dist /vagrant/src/config/parameters.ini
-
-- name: Install Composer Dependencies
-  sudo: false
-  composer: working_dir=/vagrant
-

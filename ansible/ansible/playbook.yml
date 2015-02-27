@@ -1,0 +1,19 @@
+---
+- hosts: all
+  sudo: true
+  vars:
+    web_server: apachephp
+    servername: ssh-socket.dev www.ssh-socket.dev 10.10.10.18
+    timezone: UTC
+  vars_files:
+    - vars/common.yml
+    - [ "vars/apachephp.yml", "vars/ws_defaults.yml" ]
+  roles:
+    - init
+    - php5-cli
+    - apache
+    - php5
+    - composer
+    - phpcommon
+    - php-pecl
+    - app

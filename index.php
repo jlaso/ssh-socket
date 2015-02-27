@@ -109,7 +109,7 @@ $config = $parameters['config'];
         $('#command').keydown(function (e) {
             var key = e.charCode || e.keyCode || 0;
             if (key == 13) {
-                event.preventDefault();
+                e.preventDefault();
                 var command = $("#command").val();
                 processCommand(command);
             }

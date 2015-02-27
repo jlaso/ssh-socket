@@ -7,5 +7,5 @@ composer.lock
 vendor
 
 vagrant/.vagrant
-
+.vagrant
 
